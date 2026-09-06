@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-appset-multi
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - namespace: nginx-v1
+            appName: nginx-v1
+            imageTag: "1.21"
+          - namespace: nginx-v2
+            appName: nginx-v2
+            imageTag: "1.25"
+  template:
+    metadata:
+      name: '{{appName}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/venkatasai987/argo-app.git
+        targetRevision: main
+        path: k8s
+        helm:
+          parameters:
+            - name: image.tag
+              value: '{{imageTag}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

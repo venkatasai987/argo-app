@@ -5,14 +5,13 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - list:
-        elements:
-          - namespace: nginx-v1
-            appName: nginx-v1
-            imageTag: "1.21"
-          - namespace: nginx-v2
-            appName: nginx-v2
-            imageTag: "1.25"
+  - git:
+      repoURL: https://github.com/<your-username>/nginx-argocd.git
+      revision: main
+      directories:
+        - path: k8s
+        - path: k8s-2
+
   template:
     metadata:
       name: '{{appName}}'

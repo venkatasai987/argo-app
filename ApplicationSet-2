@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-addons
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/venkatasai987/argo-app.git'
+        revision: main
+        directories:
+          - path: 'k8s'
+          - path: 'your-new-folder-path' # Automatically generates apps for both folders
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/venkatasai987/argo-app.git'
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: nginx-demo
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

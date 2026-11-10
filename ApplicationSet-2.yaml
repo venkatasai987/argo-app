@@ -10,7 +10,7 @@ spec:
         revision: main
         directories:
           - path: 'k8s'
-          - path: 'your-new-folder-path' # Automatically generates apps for both folders
+          - path: 'k8s-2' # Automatically generates apps for both folders
   template:
     metadata:
       name: '{{path.basename}}'

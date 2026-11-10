@@ -9,7 +9,7 @@ spec:
         repoURL: 'https://github.com/venkatasai987/argo-app.git'
         revision: main
         directories:
-          - path: 
+          - path: 'k8s'
           - path: 'k8s-2' # Automatically generates apps for both folders
   template:
     metadata:

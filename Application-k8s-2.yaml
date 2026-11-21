@@ -16,3 +16,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Delete=false   # <-- Prevents Argo CD from deleting any resources of this app

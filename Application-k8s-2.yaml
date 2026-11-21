@@ -14,8 +14,8 @@ spec:
     namespace: nginx-demo
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true     # Automatically deletes resources in k8s that were removed from Git  (Ensures resources deleted from your Git repository are also removed from Kubernetes so no "orphaned" manual configs linger.     
+      selfHeal: true  # Automatically reverts manual kubectl edits/deletes back to Git state
     syncOptions:
       - CreateNamespace=true
       - Delete=false   # <-- Prevents Argo CD from deleting any resources of this app
